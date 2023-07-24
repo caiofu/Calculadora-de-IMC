@@ -5,7 +5,7 @@ export default function Title()
 {
     return(
         <View style={styles.boxTitulo}>
-            <Text style={styles.textTitulo}>OneBitHealt</Text>
+            <Text style={styles.textTitulo}> Calculadora de IMC</Text>
         </View>
     );
 }
