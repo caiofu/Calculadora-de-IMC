@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, Vibration, Pressable, Keyboard, } from "react-native";
+import {View, Text, TextInput, TouchableOpacity, Vibration, Pressable, Keyboard, FlatList } from "react-native";
 import ResultadoImc from './ResultadoImc/';
 import styles from './style';
 
@@ -13,6 +13,7 @@ export default function Form()
     const [imc, setaImc] = useState(null)
     const [textBotao, setaTextBotao] = useState("Calcular")
     const [erroMensagem, setaErroMensagem] = useState(null)
+    const [imcLista, setaImcLista] = useState([]) //[] -> array
 
     //Funçoes
     function verficaErroImc()
@@ -27,12 +28,14 @@ export default function Form()
     function CalcularImc()
     {
         let alturaFormatada = altura.replace(",",".")
-        return setaImc((peso/(alturaFormatada * alturaFormatada)).toFixed(2)) //Altera o valor a hora que aciona a função (toFixed(2) para duas casas decimais)
+        let totalImc = ((peso/(alturaFormatada * alturaFormatada)).toFixed(2)) //Altera o valor a hora que aciona a função (toFixed(2) para duas casas decimais)
+        setaImcLista((arr) => [...arr, {id: new Date().getTime(), imc: totalImc}])//Setando array 
+        setaImc(totalImc)
     }
 
     function ValidaIMC()
     {
-        
+        console.log(imcLista)
         if(peso != null && altura != null)
         {
             CalcularImc();
@@ -103,6 +106,24 @@ export default function Form()
                             </TouchableOpacity>        
                     </View>
             }
+                <FlatList 
+                    style={styles.listaImcs}
+                    data={imcLista.reverse()}
+                    renderItem={({item}) =>{
+                        return(
+                            <Text style={styles.resultadoImcItem} key={item.id}>
+                                <Text style={styles.textResultadoImcItemList} key={item.id}>Resultado IMC =  </Text>
+                                {item.imc}
+                            </Text>
+                               
+                        )
+                    }}
+                    keyExtractor={(item) => {
+                        item.id
+                    }}
+                    />
+
+             
             </View>
        
     );
