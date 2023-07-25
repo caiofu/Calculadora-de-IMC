@@ -15,7 +15,13 @@ export default function ResultadoImc(props)
     return (
     <View style={styles.resultadoImc}>
             <View style={styles.boxCompartilhar}>
-                {props.resultadoIMC != null ?
+                <Text style={styles.informacao}>
+                    {props.mensagemResultadoIMC}
+                </Text>
+
+                <Text style={styles.numeroImc}>
+                    {props.resultadoIMC}
+                </Text>
                     
                     <TouchableOpacity 
                         style={styles.compartilhar}
@@ -23,18 +29,9 @@ export default function ResultadoImc(props)
                         >
                         <Text style={styles.textCompartilhar}>Compartilhar</Text>
                     </TouchableOpacity>
-                    :
-                    <View/> //View vazia
-                  
-                }
+ 
             </View>
-            <Text style={styles.informacao}>
-                {props.mensagemResultadoIMC}
-            </Text>
-
-            <Text style={styles.numeroImc}>
-                {props.resultadoIMC}
-            </Text>
+            
     </View> 
     );
    

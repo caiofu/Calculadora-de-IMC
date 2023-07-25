@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Title from './src/componets/Title';
-import Main from './src/componets/Main';
+
 import Form from './src/componets/Form';
 
 

@@ -41,50 +41,69 @@ export default function Form()
             setaMensagemIMC("Seu imc é igual: ");
             setaTextBotao("Calcular novamente"); 
             setaErroMensagem(null)
-            return
         }
-        verficaErroImc()
-        setaImc(null)
-        setaTextBotao("Calcular");
-        setaMensagemIMC("Preencha o peso e altura")
+        else
+        {
+            verficaErroImc()
+            setaImc(null)
+            setaTextBotao("Calcular");
+            setaMensagemIMC("Preencha o peso e altura")
+        }
+        
     
 
     }
     return(
         //Pressable para se tornar uma area clicavel
-        <Pressable onPress={Keyboard.dismiss} style={styles.formContext}> 
-            <View style={styles.formulario}>
-                <Text style={styles.formLabel}>Altura</Text>
-                 <Text style={styles.erroMensagem}>{erroMensagem}</Text>
-                    <TextInput
-                        style={styles.inpunt}
-                        onChangeText={setaAltura}
-                        value={altura}
-                        placeholder="Ex. 1.75"
-                        keyboardType="numeric"
-                    />
+        
+            <View style={styles.formContext}>
+                {
+                    imc == null ?
+                        <Pressable onPress={Keyboard.dismiss} style={styles.formulario}> 
+                        <Text style={styles.formLabel}>Altura</Text>
+                        <Text style={styles.erroMensagem}>{erroMensagem}</Text>
+                            <TextInput
+                                style={styles.inpunt}
+                                onChangeText={setaAltura}
+                                value={altura}
+                                placeholder="Ex. 1.75"
+                                keyboardType="numeric"
+                            />
 
-                <Text style={styles.formLabel}>Peso</Text>
-                <Text style={styles.erroMensagem}>{erroMensagem}</Text>
-                    <TextInput 
-                          style={styles.inpunt}
-                        onChangeText={setaPeso}
-                        value={peso}
-                        placeholder="Ex. 1.75"
-                        keyboardType="numeric" 
-                    />
-                    <TouchableOpacity
-                        style={styles.btnCalcular}
-                        onPress={() =>{
-                            ValidaIMC()
-                        }}
-                    >
-                     <Text style={styles.textBtnCalcular}>{textBotao}</Text>   
-                    </TouchableOpacity>
-                  
+                        <Text style={styles.formLabel}>Peso</Text>
+                        <Text style={styles.erroMensagem}>{erroMensagem}</Text>
+                            <TextInput 
+                                style={styles.inpunt}
+                                onChangeText={setaPeso}
+                                value={peso}
+                                placeholder="Ex. 1.75"
+                                keyboardType="numeric" 
+                            />
+                            <TouchableOpacity
+                                style={styles.btnCalcular}
+                                onPress={() =>{
+                                    ValidaIMC()
+                                }}
+                            >
+                            <Text style={styles.textBtnCalcular}>{textBotao}</Text>   
+                            </TouchableOpacity>
+                        
+                    
+                    </Pressable>
+            : 
+                    <View style={styles.exibiResultadoImc}>
+                        <ResultadoImc mensagemResultadoIMC={mensagemIMC} resultadoIMC={imc}/>
+                        <TouchableOpacity
+                                style={styles.btnCalcular}
+                                onPress={() =>{
+                                    ValidaIMC()
+                                }}
+                            >
+                            <Text style={styles.textBtnCalcular}>{textBotao}</Text>   
+                            </TouchableOpacity>        
+                    </View>
+            }
             </View>
-          
-            <ResultadoImc mensagemResultadoIMC={mensagemIMC} resultadoIMC={imc}/>
-        </Pressable>
+       
     );
 }
